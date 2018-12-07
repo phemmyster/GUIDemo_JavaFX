@@ -85,19 +85,19 @@ public class FXMLDocumentController implements Initializable {
     public void radioButtonChanged() {
 
         if (this.favPrgmLang.getSelectedToggle().equals(this.javaRadioBtn)) {
-            radioButtonLabel.setText("The select language is:\nJava");
+            radioButtonLabel.setText("The select language is: Java");
         }
 
         if (this.favPrgmLang.getSelectedToggle().equals(this.phpRadioBtn)) {
-            radioButtonLabel.setText("The select language is:\nPhp");
+            radioButtonLabel.setText("The select language is: Php");
         }
 
         if (this.favPrgmLang.getSelectedToggle().equals(this.aspRadioBtn)) {
-            radioButtonLabel.setText("The select language is:\nAsp.Net");
+            radioButtonLabel.setText("The select language is: Asp");
         }
 
         if (this.favPrgmLang.getSelectedToggle().equals(this.cSharpRadioBtn)) {
-            radioButtonLabel.setText("The select language is:\nC#");
+            radioButtonLabel.setText("The select language is: C#");
         }
     }
 
