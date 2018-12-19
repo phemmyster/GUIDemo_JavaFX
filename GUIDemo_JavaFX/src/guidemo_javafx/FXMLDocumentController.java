@@ -1,23 +1,32 @@
 package guidemo_javafx;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 
-/**
- *
- * @author NERSTER-PC
- */
-public class FXMLDocumentController implements Initializable {
 
-    // these are for check boxes 
+    public class FXMLDocumentController implements Initializable {
+
+    // items  for check boxes 
     @FXML
     private CheckBox pepperoniCheckBox;
     @FXML
@@ -27,19 +36,19 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label pizzaOrderLabel;
 
-    // these is for choicebox
+    // items  for choicebox
     @FXML
     private ChoiceBox choiceBox;
     @FXML
     private Label choiceBoxLabel;
 
-    // for the comboBox
+    //items  for the comboBox
     @FXML
     private ComboBox comboBox;
     @FXML
     private Label comboBoxLabel;
 
-    // for the radioButtom
+    // items for the radioButtom
     @FXML
     private RadioButton phpRadioBtn;
     @FXML
@@ -51,13 +60,30 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label radioButtonLabel;
     private ToggleGroup favPrgmLang;
+    
+    
+    // items for ListView and TextArea
+    @FXML ListView listView;
+    @FXML TextArea moviesTextArea;
+    
+    // This is for the change of view to tableview
+    public void changeScreenPushedBtn(ActionEvent event) throws IOException{
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("ExampleofTableView.fxml"));
+        Scene tableSceneView = new Scene(tableViewParent);
+        
+        // This line gets the stage
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(tableSceneView);
+        window.show();
+    }
+    
 
-    //for the choicebox
+    //methods for the choicebox
     public void choiceBoxPushed() {
         choiceBoxLabel.setText("My Favourite fruit is:\n" + choiceBox.getValue().toString());
     }
 
-    // for checkbox method
+    // method for checkbox 
     public void pizzaOderButtonPushed() {
         String order = "Toppings are: ";
 
@@ -76,12 +102,12 @@ public class FXMLDocumentController implements Initializable {
         this.pizzaOrderLabel.setText(order);
     }
 
-    // for combobox method
+    //method for combobox 
     public void comboBoxWasUpdated() {
         this.comboBoxLabel.setText("Subject selected is:\n" + comboBox.getValue().toString());
     }
 
-    // this method for radioButton
+    // radioButton for  method 
     public void radioButtonChanged() {
 
         if (this.favPrgmLang.getSelectedToggle().equals(this.javaRadioBtn)) {
@@ -98,6 +124,16 @@ public class FXMLDocumentController implements Initializable {
 
         if (this.favPrgmLang.getSelectedToggle().equals(this.cSharpRadioBtn)) {
             radioButtonLabel.setText("The select language is: C#");
+        }
+    }
+    
+    // method for btn-> selected genre btn
+    public void listViewPushedBtn(){
+        String textAreaString = "";
+        ObservableList listOfItem = listView.getSelectionModel().getSelectedItems();
+        for(Object items: listOfItem){
+            textAreaString += String.format("%s%n", (String) items);
+            moviesTextArea.setText(textAreaString);
         }
     }
 
@@ -123,6 +159,11 @@ public class FXMLDocumentController implements Initializable {
         this.phpRadioBtn.setToggleGroup(favPrgmLang);
         this.aspRadioBtn.setToggleGroup(favPrgmLang);
         this.cSharpRadioBtn.setToggleGroup(favPrgmLang);
+                
+                
+         // this is for adding ListView Items
+         listView.getItems().addAll("Action","Comedy","Romance","Animation","Sci-Fi","Western","Drama","Adventure");
+         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // for multiple selection
 
     }
 
