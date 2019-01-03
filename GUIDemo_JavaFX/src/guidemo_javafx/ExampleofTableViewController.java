@@ -83,6 +83,11 @@ public class ExampleofTableViewController implements Initializable {
         return people;
         
     } 
+    
+    // method to create a new person when the add new person btn is pushed
+    public void newPersonBtnPushed(){
+        
+    }
 
    
     
