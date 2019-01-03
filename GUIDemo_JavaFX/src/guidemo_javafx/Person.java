@@ -19,16 +19,18 @@ public class Person {
         return firstName.get(); 
     }
 
-    public void setFirstName(SimpleStringProperty firstName) {
-        this.firstName = firstName;
+   // public void setFirstName(SimpleStringProperty firstName) {
+    public void setFirstName(String firstName) {
+        this.firstName = new SimpleStringProperty (firstName);
     }
 
     public String getLastName() {
         return lastName.get();
     }
 
-    public void setLastName(SimpleStringProperty lastName) {
-        this.lastName = lastName;
+   // public void setLastName(SimpleStringProperty lastName) {
+     public void setLastName(String lastName) {
+        this.lastName = new SimpleStringProperty(lastName);
     }
 
     public LocalDate getBirthday() {

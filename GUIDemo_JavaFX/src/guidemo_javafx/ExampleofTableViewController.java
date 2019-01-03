@@ -17,8 +17,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
 
@@ -29,6 +31,19 @@ public class ExampleofTableViewController implements Initializable {
     @FXML private TableColumn<Person, String> firstNameColumn;
     @FXML private TableColumn<Person, String> lastNameColumn;
     @FXML private TableColumn<Person, LocalDate> birthdayColumn;
+    
+    
+  // method to allow firstName cell to be editable when clicked
+    public void changeFirstNameCellEvent(CellEditEvent edittedCell){
+        Person personSelected = tableView.getSelectionModel().getSelectedItem();
+        personSelected.setFirstName(edittedCell.getNewValue().toString());
+    }
+    
+    // method to allow lastName cell to be editable when clicked
+    public void changeLastNameCellEvent(CellEditEvent edittedCell){
+        Person personSelected = tableView.getSelectionModel().getSelectedItem();
+        personSelected.setLastName(edittedCell.getNewValue().toString());
+    }
     
     // This is for the change of view to tableview
     public void changeScreenPushedBtn(ActionEvent event) throws IOException{
@@ -52,6 +67,10 @@ public class ExampleofTableViewController implements Initializable {
        //load dummy data
        tableView.setItems(getPeople());
        
+       //set tableview to be ediitable
+       tableView.setEditable(true);
+       firstNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+       lastNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
        
     }  
     // an observableList of people
